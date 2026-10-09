@@ -1,0 +1,11 @@
+# Служебные файлы ОС и редакторов
+Thumbs.db
+.DS_Store
+Desktop.ini
+*.log
+.vscode/
+.idea/
+
+# Локальные временные файлы
+*.tmp
+*.bak
