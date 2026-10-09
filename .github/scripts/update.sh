@@ -5,7 +5,7 @@
 #     bash update.sh "правки цен"
 # ============================================================
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(git rev-parse --show-toplevel)"
 
 MSG="${1:-}"
 if [ -z "$MSG" ]; then

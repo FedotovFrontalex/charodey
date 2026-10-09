@@ -6,7 +6,7 @@
 #     bash publish.sh "feat: моё сообщение"  — со своим сообщением
 # ============================================================
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(git rev-parse --show-toplevel)"
 
 BRANCH="main"
 REMOTE="origin"
@@ -64,12 +64,14 @@ if git push -u "$REMOTE" "$CURRENT_BRANCH"; then
   echo "OK: опубликовано в $REMOTE_URL"
   echo "==============================================="
   echo
-  echo "Чтобы сайт заработал как GitHub Pages (бесплатный хостинг):"
+  echo "Дальше сработает автодеплой: .github/workflows/deploy.yml"
+  echo "публикует сайт на GitHub Pages при каждом пуше в main."
+  echo
+  echo "Разовый шаг (если ещё не сделан):"
   echo "  1. Откройте $REMOTE_URL/settings/pages"
-  echo "  2. Source: Deploy from a branch"
-  echo "  3. Branch: $CURRENT_BRANCH, папка / (root)  ->  Save"
-  echo "  4. Через 1-2 мин сайт будет на:"
-  echo "     https://<имя-аккаунта>.github.io/<имя-репо>/"
+  echo "  2. Source: GitHub Actions  ->  Save"
+  echo "  3. Сайт будет на: https://fedotovfrontalex.github.io/charodey/"
+  echo "     (прогресс: вкладка $REMOTE_URL/actions)"
 else
   echo
   echo "ERROR: push не прошёл. Возможные причины:"
