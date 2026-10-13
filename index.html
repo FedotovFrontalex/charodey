@@ -39,6 +39,7 @@ body{
   color:var(--ink);background:var(--bg);
   font-size:17px;line-height:1.6;
   -webkit-font-smoothing:antialiased;
+  overflow-x:clip;
 }
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
@@ -90,7 +91,8 @@ h2 .accent-p{color:var(--purple)}
 }
 .header.scrolled{border-bottom-color:var(--line);box-shadow:0 8px 30px -18px rgba(60,20,0,.18)}
 .header__inner{height:var(--header-h);display:flex;align-items:center;justify-content:space-between;gap:24px}
-.header__logo img{height:52px;width:auto}
+.header__logo{flex:none}
+.header__logo img{height:52px;width:auto;flex:none}
 .nav{display:flex;gap:24px}
 .nav a{font-weight:600;font-size:15.5px;color:var(--ink);position:relative;padding:6px 0;white-space:nowrap}
 .nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2.5px;border-radius:2px;background:var(--orange);transition:.25s}
@@ -156,9 +158,12 @@ h1 .accent{background:linear-gradient(100deg,var(--orange),#e88b1f 60%,var(--pur
 }
 .float-card b{display:block;font-size:19px;line-height:1.15}
 .float-card span{font-size:13px;color:var(--muted);line-height:1.3;display:block}
-.float-card--1{top:26px;left:-34px;animation-delay:.4s}
-.float-card--2{bottom:34px;right:-26px}
-.float-card--3{bottom:-24px;left:34px;animation-delay:1.2s}
+/* Плашки ставим только в «безопасные зоны» фото: в командном фото лица
+   занимают верхние ~35% кадра, ниже — торсы и ноги. Координаты в % от контейнера,
+   чтобы геометрия сохранялась на любых разрешениях. */
+.float-card--1{top:42%;left:-34px;animation-delay:.4s}
+.float-card--2{bottom:14%;right:-26px}
+.float-card--3{bottom:-24px;left:30%;animation-delay:1.2s}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
 /* ============ MARQUEE ============ */
@@ -209,8 +214,10 @@ h1 .accent{background:linear-gradient(100deg,var(--orange),#e88b1f 60%,var(--pur
 .safety__img{position:relative}
 .safety__img img{border-radius:28px;box-shadow:var(--shadow);aspect-ratio:4/4.4;object-fit:cover;width:100%}
 .safety__img .float-card{padding:12px 18px}
-.safety__img .float-card--s1{top:22px;right:-20px;animation-delay:.2s}
-.safety__img .float-card--s2{bottom:26px;left:-24px;animation-delay:1s}
+/* Фото в операционной: лица врачей — вверху по углам, голова ребёнка — внизу по центру.
+   Плашки — выше голов справа и на левом краю ниже лица врача. */
+.safety__img .float-card--s1{top:7%;right:-20px;animation-delay:.2s}
+.safety__img .float-card--s2{top:46%;left:-24px;animation-delay:1s}
 .check-list{display:flex;flex-direction:column;gap:16px;margin-top:30px}
 .check-list li{display:flex;gap:15px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 22px;transition:.25s}
 .check-list li:hover{border-color:#d9c9ea;box-shadow:var(--shadow-sm)}
@@ -443,15 +450,29 @@ h1 .accent{background:linear-gradient(100deg,var(--orange),#e88b1f 60%,var(--pur
 .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
 
 /* ============ RESPONSIVE ============ */
+@media (max-width:1240px){
+  .nav a[href="#safety"]{display:none}
+}
+@media (max-width:1200px){
+  .header__phone span{display:none}
+  .header__phone a{font-size:15px}
+  .header__logo img{height:42px}
+  .header__right{gap:14px}
+  .header__right .btn{padding:12px 20px;font-size:14.5px}
+  .nav{gap:16px}
+  .nav a{font-size:14px}
+}
 @media (max-width:1120px){
   .doctors{grid-template-columns:repeat(3,1fr)}
   .steps{grid-template-columns:repeat(3,1fr)}
   .float-card--1{left:-8px}
   .float-card--2{right:-6px}
 }
-@media (max-width:980px){
+@media (max-width:1080px){
   .nav,.header__phone{display:none}
   .burger{display:flex}
+}
+@media (max-width:980px){
   .hero__grid{grid-template-columns:1fr;gap:60px}
   .hero__visual{max-width:600px;margin:0 auto}
   .safety{grid-template-columns:1fr;gap:44px}
@@ -473,7 +494,10 @@ h1 .accent{background:linear-gradient(100deg,var(--orange),#e88b1f 60%,var(--pur
   .hero__sub{font-size:17px}
   .float-card{padding:11px 15px}
   .float-card b{font-size:16px}
-  .float-card--1{top:10px}
+  .float-card--1{left:-10px}
+  .float-card--2{right:-10px}
+  .float-card--3{left:18%}
+  .hero__badge{flex-wrap:wrap;row-gap:8px;padding:9px 16px 9px 10px;border-radius:20px}
   .steps{grid-template-columns:1fr}
   .doctors{grid-template-columns:1fr;gap:14px}
   .doctor{flex-direction:row;align-items:stretch}
