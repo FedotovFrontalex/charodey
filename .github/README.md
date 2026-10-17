@@ -22,3 +22,9 @@
   ```bash
   bash .github/scripts/update.sh "правки цен"
   ```
+- **make-tilda-embed.mjs** — пересборка кода для вставки лендинга в Tilda
+  (папка `tilda/`: стили, контент, превью; картинки подменяются на CDN Tilda).
+  ```bash
+  node .github/scripts/make-tilda-embed.mjs
+  ```
+  Инструкция по вставке — в `tilda/README.md`.
